@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Awakening... | APRT Project</title>
+    <style>
+        body {
+            background-color: #0b0f0e;
+            color: #e0f2fe;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #00ff66;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 5px;
+            color: #00ff66;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #00ff66, 0 0 30px #00ff66;
+        }
+
+        #timer {
+            display: flex;
+            gap: 2rem;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-value {
+            color: #00ff66;
+            text-shadow: 0 0 20px #00ff66, 0 0 40px rgba(0, 255, 102, 0.6);
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .footer-text {
+            margin-top: 3rem;
+            font-size: 1.3rem;
+            color: #00ff66;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00ff66;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; text-shadow: 0 0 10px #00ff66; }
+            50% { opacity: 1; text-shadow: 0 0 20px #00ff66, 0 0 35px #00ff66; }
+            100% { opacity: 0.5; text-shadow: 0 0 10px #00ff66; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- De afbeelding is nu vergroot -->
+        <img src="jprr.jpg" alt="APRT Logo" class="logo-img">
+
+        <h1>S O M E T H I N G &nbsp; I S &nbsp; C O M I N G</h1>
+        
+        <div id="timer">
+            <div class="time-box">
+                <span id="days" class="time-value">00</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-box">
+                <span id="hours" class="time-value">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span id="minutes" class="time-value">00</span>
+                <span class="time-label">Min</span>
+            </div>
+            <div class="time-box">
+                <span id="seconds" class="time-value">00</span>
+                <span class="time-label">Sec</span>
+            </div>
+        </div>
+
+        <div class="footer-text">Stay alert. $APRT</div>
+    </div>
+
+    <script>
+        // Doeldatum: 22 oktober 2026 om 20:00:00
+        const targetDate = new Date(2026, 9, 22, 20, 0, 0).getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("timer").innerHTML = "<span style='color: #00ff66; font-size: 2rem; text-shadow: 0 0 20px #00ff66;'>LAUNCHING NOW...</span>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
